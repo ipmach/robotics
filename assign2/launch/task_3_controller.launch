@@ -1,0 +1,22 @@
+<launch>
+
+<!-- arguments are set via terminal and can have a default value -->
+<arg name="robot_name" default="thymio10" />
+
+<!-- nodes are exectued -->
+<!-- execute command exercisse 1-->
+<node pkg="assign2" name="part1" type="part1.py" args = "/home/usi/catkin_ws/src/assign2/scripts/exercise2.json 0 1" output="screen">
+    <!-- paramters must be set in the launchfile -->
+    <param name="robot_name" value="/$(arg robot_name)" />
+</node>
+
+<!--<node pkg="assign2" name="part2" type="part1.py" args = "/home/usi/catkin_ws/src/assign2/scripts/exercise2.json 1" output="screen">
+    <param name="robot_name" value="thymio20" />
+</node>-->
+
+<node pkg="assign2" name="visual" type="interface.py" output="screen">
+    <!-- paramters must be set in the launchfile -->
+    <param name="robot_name" value="/$(arg robot_name)" />
+</node>
+
+</launch>

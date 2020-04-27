@@ -28,6 +28,7 @@ controller.launch have parameters inside to program the use of the robot:
 * robot_name: name of the robot.
 * instruction_path: path of the general instruction to follow. (exercise2.json default, exercise1.json is to move in a 8).
 * use_sensors: flag to tell the robot if to use sensors (Close loop or Open loop).
+* random_noise: flag to use the second controller to create random moves.
 
 The next two are in the controller.launch but not implement it (can be remove):
 * use_net: to use the need to detect obstacles. 

@@ -28,8 +28,8 @@
 <node pkg="assign2" name="net" type="neuronalNetwork.py" output="screen">
     <!-- paramters must be set in the launchfile -->
     <param name="robot_name" value="/$(arg robot_name)" />
-    <param name="use_net" value="/$(arg use_net)" />
-    <param name="train_net" value="/$(arg train_net)" />
+    <param name="use_net" value="$(arg use_net)" />
+    <param name="train_net" value="$(arg train_net)" />
 </node>
 
 

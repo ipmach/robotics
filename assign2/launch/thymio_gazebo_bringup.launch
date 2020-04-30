@@ -3,7 +3,7 @@
 
   <env name="GAZEBO_MODEL_PATH" value="$(find thymio_description)/..:$(find thymioid_description)/..:$(find thymio_course_skeleton):$(optenv GAZEBO_MODEL_PATH)" />
   <env name="SVGA_VGPU10" value="0"/>
-  <arg name="gui" default="true"/>
+  <arg name="gui" default="false"/>
   <arg name="name" default=""/>
   <arg name="world" default="empty"/>
 
@@ -35,7 +35,7 @@
     <arg name="proximity_resolution" default="0.005"/>
     <arg name="proximity_fov" default="0.3"/>
 
-  </include> 
+  </include>
 
    <!--<include file="$(find thymioid_description)/launch/gazebo_bringup.launch">
     <arg name="name" value="thymio10"/>

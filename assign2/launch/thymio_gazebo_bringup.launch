@@ -35,7 +35,7 @@
     <arg name="proximity_resolution" default="0.005"/>
     <arg name="proximity_fov" default="0.3"/>
 
-  </include>
+  </include> 
 
    <!--<include file="$(find thymioid_description)/launch/gazebo_bringup.launch">
     <arg name="name" value="thymio10"/>

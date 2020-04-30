@@ -1,41 +1,23 @@
-#!/usr/bin/env python
-
 import rospy
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import Range
 from geometry_msgs.msg import Pose, Twist, Vector3
 from tf.transformations import euler_from_quaternion
-import sys
-import json
-import numpy as np
-import random
-
-from movement_class import movement
-from sensor_class import proximity_sensor
 from std_msgs.msg import Int64
+from sensor_msgs.msg import Range,Image,CameraInfo
+from cv_bridge import CvBridge
+import message_filters
+import numpy as np
+import cv2
 
-class Net:
+class ross_message:
 
-    def __init__(self):
-        """Initialization."""
-
-        # initialize the node
-        rospy.init_node(
-            'thymio_controller'  # name of the node
-        )
-
-        #Dictionary with the instructions  and other parameters
-        self.name = rospy.get_param('~robot_name')
-        self.use_net = bool(int(rospy.get_param('~use_net')))
-        self.train_net =  bool(int(rospy.get_param('~train_net')))
-
-        #Initialize sensors
-        self.sensor = proximity_sensor()
-
-        self.flag_publisher = rospy.Publisher(
-            self.name + '/flag',  # name of the topic
-            Int64,  # message type
-            queue_size=10  # queue size
+    def init_publisher_subscribers_sensors(self):
+        # create pose subscriber
+        self.pose_subscriber = rospy.Subscriber(
+            self.name + '/odom',  # name of the topic
+            Odometry,  # message type
+            self.log_odometry  # function that hanldes incoming messages
         )
 
         self.proximity_center_subscriber = rospy.Subscriber(
@@ -78,16 +60,90 @@ class Net:
             Range,  # message type
             self.log_rear_left_range  # function that hanldes incoming messages
         )
+    def init_publisher_subscribers_odometry(self):
+        # create velocity publisher
+        self.velocity_publisher = rospy.Publisher(
+            self.name + '/cmd_vel',  # name of the topic
+            Twist,  # message type
+            queue_size=10  # queue size
+        )
 
-        # set node update frequency in Hz
-        self.rate = rospy.Rate(10)
+        self.flag_publisher = rospy.Publisher(
+            self.name + '/flag',  # name of the topic
+            Int64,  # message type
+            queue_size=10  # queue size
+        )
+        self.flag = 0
+        self.pose = Pose()
+        self.velocity = Twist()
+        self.pose_subscriber = rospy.Subscriber(self.name+'/odom', Odometry, self.log_odometry)
+        self.flag_subscriber = rospy.Subscriber(self.name+'/flag', Int64, self.log_flag)
 
+    def init_publisher_subscribers_camera(self):
+        image_sub = message_filters.Subscriber(self.name+'/camera/image_raw', Image)
+        info_sub = message_filters.Subscriber(self.name+'/camera/camera_info', CameraInfo)
+        self.rgb_undist = np.zeros((600,600))
+        ts = message_filters.ApproximateTimeSynchronizer([image_sub, info_sub], 10, 0.2)
+        ts.registerCallback(self.log_camera)
+
+
+    def log_camera(self,rgb_msg, camera_info):
+       """
+        Updates the image from robot camera
+       """
+       rgb_image = CvBridge().imgmsg_to_cv2(rgb_msg, desired_encoding="rgb8")
+       camera_info_K = np.array(camera_info.K).reshape([3, 3])
+       camera_info_D = np.array(camera_info.D)
+       self.rgb_undist = cv2.undistort(rgb_image, camera_info_K, camera_info_D)
+
+    def human_readable_pose2d(self, pose):
+        """Converts pose message to a human readable pose tuple."""
+
+        # create a quaternion from the pose
+        quaternion = (
+            pose.orientation.x,
+            pose.orientation.y,
+            pose.orientation.z,
+            pose.orientation.w
+        )
+
+        # convert quaternion rotation to euler rotation
+        roll, pitch, yaw = euler_from_quaternion(quaternion)
+
+        result = (
+            pose.position.x,  # x position
+            pose.position.y,  # y position
+            yaw  # theta angle
+        )
+
+        return result
+        
+    def log_flag(self,data):
+        self.flag = data.data
+
+    def log_odometry(self, data):
+        """Updates robot pose and velocities, and logs pose to console."""
+
+        self.pose = data.pose.pose
+        self.velocity = data.twist.twist
+        printable_pose = self.human_readable_pose2d(self.pose)
+        # log robot's pose
+        
+        rospy.loginfo_throttle(
+            period=5,  # log every 10 seconds
+            msg=self.name + ' odometry ' +' (%.3f, %.3f, %.3f) ' % printable_pose  # message
+        )
+        
     def log_center_range(self,data):
         """
         Update center sensor
         """
         center =  100 * data.range/(data.max_range - data.min_range)
         self.sensor.proximity_center = center
+        rospy.loginfo_throttle(
+            period=5,  # log every 10 seconds
+            msg=self.name + ' sensors range ' + self.sensor.toString()   # message
+        )
 
     def log_right_range(self,data):
         """
@@ -130,17 +186,3 @@ class Net:
         """
         rear_left =  100 * data.range/(data.max_range - data.min_range)
         self.sensor.proximity_rear_left = rear_left
-
-
-    def run(self):
-        while not rospy.is_shutdown():
-            2+2
-
-if __name__ == '__main__':
-
-    n = Net()
-
-    try:
-        n.run()
-    except rospy.ROSInterruptException as e:
-        pass

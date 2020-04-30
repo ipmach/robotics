@@ -1,48 +1,19 @@
 #!/usr/bin/env python
 import rospy
-from nav_msgs.msg import Odometry
-from sensor_msgs.msg import Range,Image,CameraInfo
-from geometry_msgs.msg import Pose, Twist, Vector3
-from tf.transformations import euler_from_quaternion
-from std_msgs.msg import Int64
 from matplotlib import pyplot as plt
-import numpy as np
-import cv2
-from cv_bridge import CvBridge
-import message_filters
-import time
+from auxiliar_classes.ross_message import ross_message
 
-
-class interface():
+class interface(ross_message):
 
 	def __init__(self):
 		rospy.init_node('visual')
 		self.name = rospy.get_param('~robot_name')
 		self.pose_x = []
 		self.pose_y = []
-		self.pose = Pose()
-		self.velocity = Twist()
-		self.pose_subscriber = rospy.Subscriber(self.name+'/odom', Odometry, self.log_odometry)
-		self.flag_subscriber = rospy.Subscriber(self.name+'/flag', Int64, self.log_flag)
-		image_sub = message_filters.Subscriber('/thymio10/camera/image_raw', Image)
-		info_sub = message_filters.Subscriber('/thymio10/camera/camera_info', CameraInfo)
-		ts = message_filters.ApproximateTimeSynchronizer([image_sub, info_sub], 10, 0.2)
-		ts.registerCallback(self.callback)
-		self.flag = 0
+		self.init_publisher_subscribers_camera()
+		self.init_publisher_subscribers_odometry()
 		self.rate = rospy.Rate(10)
 
-	def log_odometry(self,data):
-		self.pose = data.pose.pose
-		self.velocity = data.twist.twist
-
-	def log_flag(self,data):
-		self.flag = data.data
-
-	def callback(self,rgb_msg, camera_info):
-	   rgb_image = CvBridge().imgmsg_to_cv2(rgb_msg, desired_encoding="rgb8")
-	   camera_info_K = np.array(camera_info.K).reshape([3, 3])
-	   camera_info_D = np.array(camera_info.D)
-	   self.rgb_undist = cv2.undistort(rgb_image, camera_info_K, camera_info_D)
 	   #print(np.array(self.rgb_undist).shape)
 
 	def renderInterface(self):
@@ -50,22 +21,30 @@ class interface():
 		Render interface
 		"""
 		fig = plt.figure(1,figsize = (8,6))
+		#Set background color
+		fig.patch.set_facecolor('#E0E0E0')
+		fig.patch.set_alpha(0.7)
 		fig.suptitle('Robot ' + self.name, fontsize=20)
+		#Velocimeter
 		ax1 = plt.subplot(2,2,1)
 		speeds = [1,2]
 		plt.vlines(0, 0.5, 2.5)
 		plt.barh(speeds,[self.velocity.linear.x,self.velocity.angular.z])
 		plt.yticks(speeds, ["linear","angular"])
 		ax1.title.set_text('Speed ms')
-		#plt.xlabel('Speed ms', fontsize=14)
+		#Camera
 		ax2 = plt.subplot(2,2,2)
 		plt.imshow(self.rgb_undist)
 		ax2.title.set_text('Camera')
+		#Odometry map
 		grid = plt.GridSpec(2, 3, wspace=0.4, hspace=0.3)
 		plt.subplot(grid[1, :])
 		plt.plot(self.pose_x,self.pose_y,'--o')
+		plt.plot(self.pose_x[-1],self.pose_y[-1],'rx', label = "last position")
 		plt.grid(color='g', linestyle='--', linewidth=0.5)
 		plt.xlabel('Odometry', fontsize=14)
+		plt.legend()
+		#remder 
 		fig.canvas.draw()
 		plt.show(block=False)
 
@@ -84,10 +63,12 @@ class interface():
 
 
 if __name__ == '__main__':
-
+	
 	visual_interface = interface()
 
 	try:
 		visual_interface.run()
 	except rospy.ROSInterruptException as e:
 		pass
+
+

@@ -1,0 +1,33 @@
+<launch>
+
+<!-- arguments are set via terminal and can have a default value -->
+<arg name="robot_name" default="thymio10" />
+<arg name="instruction_path" default="/home/usi/catkin_ws/src/robotics/instructions/exercise2.json" />
+<arg name="use_sensors" default="1" />
+<arg name="random_noise" default="1" />
+
+<!-- nodes are exectued -->
+<!-- execute command exercisse 1-->
+
+<node pkg="robotics" name="sensor_controller" type="sensor_controller.py" output="screen">
+    <!-- paramters must be set in the launchfile -->
+    <param name="robot_name" value="/$(arg robot_name)" />
+    <param name="instruction_path" value="$(arg instruction_path)" />
+    <param name="use_sensors" value="$(arg use_sensors)" />
+    <param name="random_noise" value="$(arg random_noise)" />
+    <!-- Add in the future a funcionality to use the train net-->
+</node>
+
+<node pkg="robotics" name="visual" type="interface.py" output="screen">
+    <!-- paramters must be set in the launchfile -->
+    <param name="robot_name" value="/$(arg robot_name)" />
+</node>
+
+<node pkg="robotics" name="net" type="model_controler.py" output="screen">
+    <!-- paramters must be set in the launchfile -->
+    <param name="robot_name" value="/$(arg robot_name)" />
+</node>
+
+
+
+</launch>

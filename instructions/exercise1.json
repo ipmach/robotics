@@ -1,0 +1,4 @@
+{"1":{"linear":0.2,"angular":0.4, "x":0 ,"y":0 ,"angle":3},
+ "2":{"linear":0.2,"angular": -0.4, "x":0 ,"y":0 ,"angle":0},
+ "3":{"linear":0.2,"angular":-0.4, "x":0 ,"y":0 ,"angle":3},
+ "4":{"linear":0.2,"angular":0.4, "x":0 ,"y":0 ,"angle":0}}

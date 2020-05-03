@@ -1,15 +1,25 @@
 # Robotics
 
-Run world
+Run world without big interface
 
 ```python
-roslaunch assign2 thymio_gazebo_bringup.launch name:=thymio10 world:=arena
+roslaunch assign2 thymio_gazebo_bringup.launch name:=thymio10 world:=arena gui:=false
+```
+Run world with big interface
+
+```python
+roslaunch assign2 thymio_gazebo_bringup.launch name:=thymio10 world:=arena gui:=true
 ```
 
-Run robot
+Run robot with saving data
 
 ```python
-roslaunch assign2 controller.launch 
+roslaunch assign2 controller.launch dataset_size:=1000 
+```
+Run robot without saving data
+
+```python
+roslaunch assign2 controller.launch save_data:=0 
 ```
 
 ## Scripts
@@ -29,23 +39,14 @@ controller.launch have parameters inside to program the use of the robot:
 * instruction_path: path of the general instruction to follow. (exercise2.json default, exercise1.json is to move in a 8).
 * use_sensors: flag to tell the robot if to use sensors (Close loop or Open loop).
 * random_noise: flag to use the second controller to create random moves.
+* save_data: flag to say if the robot gather data
+* data_path: path where the robot save the data
+* dataset_size: number of images to save
 
-The next two are in the controller.launch but not implement it (can be remove):
-* use_net: to use the need to detect obstacles. 
-* train_net: to train the net.
+## Install dependencies
 
-## Diagrams
+```python
+pip install hdf5 
+```
 
-Diagrams for better understanding of the code.
 
- * Flags use in the launch file
-
-![Graph](https://github.com/ipmach/Robotics/blob/master/img/Flags.png)
-
- * States of the main controller
-
-![Graph](https://github.com/ipmach/Robotics/blob/master/img/States_robot.png)
-
-* Main diagram of the code
-
-![Graph](https://github.com/ipmach/Robotics/blob/master/img/initial_diagram.png)

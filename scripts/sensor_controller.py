@@ -80,8 +80,9 @@ class ThymioController(ross_message):
         #Turning away orthogonal to colision States: "Turning away" -> "Turning away" || "Avoiding colision"       
         if self.actual_state == self.states[2]: 
             if not self.sensor.back_equal_sensor():
-                print(self.m2.isover(data[0],data[1],data[2], angular))
-            #if not self.m2.isover(data[0],data[1],data[2], angular) and not self.sensor.back_equal_sensor():
+            #print(self.m2.isover(data[0],data[1],data[2], angular)) #Maybe in the future
+            #if not self.m2.isover(data[0],data[1],data[2], angular):
+            #   print(data[2],self.m2.end_angle)
                 return Twist(linear=Vector3(.0,.0,.0,),angular=Vector3(.0,.0,.25)),False   
             self.actual_state = self.states[3]
 

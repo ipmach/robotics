@@ -11,6 +11,9 @@ class interface(ross_message):
 	def __init__(self):
 		rospy.init_node('visual')
 		self.name = rospy.get_param('~robot_name')
+		working_path = rospy.get_param('~data_path')
+		self.save_data = bool(int(rospy.get_param('~save_data')))
+		self.dataset_size = int(rospy.get_param('~dataset_size'))
 		self.pose_x = []
 		self.pose_y = []
 		self.init_publisher_subscribers_camera()
@@ -18,25 +21,24 @@ class interface(ross_message):
 		self.sensor = proximity_sensor()
 		self.init_publisher_subscribers_sensors()
 		self.rate = rospy.Rate(10)
-		working_path = '/home/usi/catkin_ws/src/robotics/data'
-		self.data_file = h5py.File("{}/training_data1.h5".format(working_path))
-		self.dataset_size = 25
-		self.dataset = self.data_file.create_dataset('train',
-								(self.dataset_size, 480, 640, 3), 'f')
-		self.dataset_y = self.data_file.create_dataset('train_y',
-								(self.dataset_size, 1), 'f')
-		
-		self.subscriber_names = ["/proximity/left", "/proximity/center_left",
-								"/proximity/center", "/proximity/center_right", "/proximity/right"
-								]
-		self.sensors_names = ['left', 'center_left', 'center', 'center_right',
-								'right']
-		self.data_counter = 0
-		self.frame_count = 0
-		self.raw_data = []
-		self.sensors_array = np.zeros((5,))
-		self.sensors_weight = np.array([-1, -2, 0, 2, 1])
-		self.proximity_weighted = 0
+		if self.save_data:
+			self.data_file = h5py.File("{}/training_data1.h5".format(working_path))
+			self.dataset = self.data_file.create_dataset('train',
+									(self.dataset_size, 480, 640, 3), 'f')
+			self.dataset_y = self.data_file.create_dataset('train_y',
+									(self.dataset_size, 1), 'f')
+			
+			self.subscriber_names = ["/proximity/left", "/proximity/center_left",
+									"/proximity/center", "/proximity/center_right", "/proximity/right"
+									]
+			self.sensors_names = ['left', 'center_left', 'center', 'center_right',
+									'right']
+			self.data_counter = 0
+			self.frame_count = 0
+			self.raw_data = []
+			self.sensors_array = np.zeros((5,))
+			self.sensors_weight = np.array([-1, -2, 0, 2, 1])
+			self.proximity_weighted = 0
 
 	   #print(np.array(self.rgb_undist).shape)
 
@@ -65,8 +67,26 @@ class interface(ross_message):
 		plt.barh(speeds,[self.velocity.linear.x,self.velocity.angular.z])
 		plt.yticks(speeds, ["linear","angular"])
 		ax1.title.set_text('Speed ms')
+		#Camera
+		ax2 = plt.subplot(2,2,2)
+		plt.imshow(self.rgb_undist)
+		ax2.title.set_text('Camera')
+		#Odometry map
+		grid = plt.GridSpec(2, 3, wspace=0.4, hspace=0.3)
+		plt.subplot(grid[1, :])
+		plt.plot(self.pose_x,self.pose_y,'--o')
+		plt.plot(self.pose_x[-1],self.pose_y[-1],'rx', label = "last position")
+		plt.grid(color='g', linestyle='--', linewidth=0.5)
+		plt.xlabel('Odometry', fontsize=14)
+		plt.legend()
+		#remder 
+		fig.canvas.draw()
+		plt.show(block=False)
 
-		# for dataset gathering
+	def gather_data(self):	
+		"""
+		Gather data for database
+		"""
 		is_close = ((np.abs(self.velocity.linear.x) <= 0.01)
 					 and 
 					 (np.abs(self.velocity.angular.z) >= 0.2))
@@ -96,33 +116,19 @@ class interface(ross_message):
 			self.data_file.close()
 			exit()
 
-		#Camera
-		ax2 = plt.subplot(2,2,2)
-		plt.imshow(self.rgb_undist)
-		ax2.title.set_text('Camera')
-		#Odometry map
-		grid = plt.GridSpec(2, 3, wspace=0.4, hspace=0.3)
-		plt.subplot(grid[1, :])
-		plt.plot(self.pose_x,self.pose_y,'--o')
-		plt.plot(self.pose_x[-1],self.pose_y[-1],'rx', label = "last position")
-		plt.grid(color='g', linestyle='--', linewidth=0.5)
-		plt.xlabel('Odometry', fontsize=14)
-		plt.legend()
-		#remder 
-		fig.canvas.draw()
-		plt.show(block=False)
-
 	def run(self):
 		self.pose_x.append(self.pose.position.x)
 		self.pose_y.append(self.pose.position.y)
 		self.renderInterface()
 		while not rospy.is_shutdown():
-			self.update()
 			if self.flag == 1:
 				self.pose_x.append(self.pose.position.x)
 				self.pose_y.append(self.pose.position.y)
 			plt.clf()
 			self.renderInterface()
+			if self.save_data:
+				self.update()
+				self.gather_data()
 			self.rate.sleep()
 			#time.sleep(1)
 

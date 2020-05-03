@@ -35,7 +35,7 @@ class movement():
         Obtain the difference angle
         """
         aux = movement.correctAngle(ini_angle) + movement.correctAngle(end_angle)
-        return aux - 6.30 if aux > 6.30 else aux
+        return aux - 6.30 #if aux > 6.30 else aux
 
     def isover_angles(self,angle,w):
         """

@@ -1,8 +1,14 @@
+<?xml version="1.0"?>
+
 <launch>
 
-<!-- arguments are set via terminal and can have a default value -->
+<!-- arguments <?xml version="1.0"?>
+are set via terminal and can have a default value -->
 <arg name="robot_name" default="thymio10" />
 <arg name="instruction_path" default="/home/usi/catkin_ws/src/robotics/instructions/exercise2.json" />
+<arg name="save_data" default="1"/>
+<arg name="data_path" default="/home/usi/catkin_ws/src/robotics/data"/>
+<arg name="dataset_size" default="25"/>
 <arg name="use_sensors" default="1" />
 <arg name="random_noise" default="1" />
 
@@ -21,6 +27,9 @@
 <node pkg="robotics" name="visual" type="interface.py" output="screen">
     <!-- paramters must be set in the launchfile -->
     <param name="robot_name" value="/$(arg robot_name)" />
+    <param name="data_path" value="$(arg data_path)" />
+    <param name="save_data" value="$(arg save_data)" />
+    <param name="dataset_size" value="$(arg dataset_size)" />
 </node>
 
 <node pkg="robotics" name="net" type="model_controler.py" output="screen">

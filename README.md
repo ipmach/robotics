@@ -3,23 +3,33 @@
 Run world without big interface
 
 ```python
-roslaunch assign2 thymio_gazebo_bringup.launch name:=thymio10 world:=arena gui:=false
+roslaunch robotics thymio_gazebo_bringup.launch name:=thymio10 world:=arena gui:=false
 ```
 Run world with big interface
 
 ```python
-roslaunch assign2 thymio_gazebo_bringup.launch name:=thymio10 world:=arena gui:=true
+roslaunch robotics thymio_gazebo_bringup.launch name:=thymio10 world:=arena gui:=true
 ```
 
 Run robot with saving data
 
 ```python
-roslaunch assign2 controller.launch dataset_size:=1000 
+roslaunch robotics controller.launch dataset_size:=1000 
 ```
 Run robot without saving data
 
 ```python
-roslaunch assign2 controller.launch save_data:=0 
+roslaunch robotics controller.launch save_data:=0 
+```
+
+## Build ros package
+
+```python
+catkin build
+```
+
+```python
+re.
 ```
 
 ## Scripts

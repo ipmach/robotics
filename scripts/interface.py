@@ -2,6 +2,7 @@
 import h5py
 import numpy as np
 import rospy
+from datetime import datetime
 from matplotlib import pyplot as plt
 from auxiliar_classes.sensor_class import proximity_sensor
 from auxiliar_classes.ross_message import ross_message
@@ -22,7 +23,9 @@ class interface(ross_message):
 		self.init_publisher_subscribers_sensors()
 		self.rate = rospy.Rate(10)
 		if self.save_data:
-			self.data_file = h5py.File("{}/training_data1.h5".format(working_path))
+			today_str = datetime.today().strftime("%Y-%m-%d-%H-%M-%S")
+			self.data_file = h5py.File("{}/training_data_{}.h5".format(working_path,
+																	  today_str))
 			self.dataset = self.data_file.create_dataset('train',
 									(self.dataset_size, 480, 640, 3), 'f')
 			self.dataset_y = self.data_file.create_dataset('train_y',

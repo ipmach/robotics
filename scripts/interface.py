@@ -30,6 +30,8 @@ class interface(ross_message):
 									(self.dataset_size, 480, 640, 3), 'f')
 			self.dataset_y = self.data_file.create_dataset('train_y',
 									(self.dataset_size, 1), 'f')
+			self.dataset_ang = self.data_file.create_dataset('train_ang',
+									(self.dataset_size, 1), 'f')
 			
 			self.subscriber_names = ["/proximity/left", "/proximity/center_left",
 									"/proximity/center", "/proximity/center_right", "/proximity/right"
@@ -105,10 +107,12 @@ class interface(ross_message):
 			self.raw_data.append(self.rgb_undist)
 			self.dataset[self.data_counter] = self.rgb_undist
 			self.dataset_y[self.data_counter] = self.proximity_weighted
+			self.dataset_ang[self.data_counter] = self.velocity.angular.z
 			self.data_counter += 1
 		elif frame_condition:
 			self.dataset[self.data_counter] = self.rgb_undist
 			self.dataset_y[self.data_counter] = self.proximity_weighted
+			self.dataset_ang[self.data_counter] = self.velocity.angular.z
 			self.raw_data.append(self.rgb_undist)
 			self.data_counter += 1
 

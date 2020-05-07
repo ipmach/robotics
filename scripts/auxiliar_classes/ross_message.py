@@ -87,19 +87,28 @@ class ross_message:
     def init_publisher_subscribers_camera(self):
         image_sub = message_filters.Subscriber(self.name+'/camera/image_raw', Image)
         info_sub = message_filters.Subscriber(self.name+'/camera/camera_info', CameraInfo)
-        self.rgb_undist = np.zeros((600,600))
+        self.rgb_undist = np.zeros((96,128,3)) #IT WAS (600,600)
         ts = message_filters.ApproximateTimeSynchronizer([image_sub, info_sub], 10, 0.2)
         ts.registerCallback(self.log_camera)
-
+        self.i=0
 
     def log_camera(self,rgb_msg, camera_info):
        """
         Updates the image from robot camera
        """
-       rgb_image = CvBridge().imgmsg_to_cv2(rgb_msg, desired_encoding="rgb8")
+       rgb_image = CvBridge().imgmsg_to_cv2(rgb_msg, desired_encoding="rgb8") #shape 480*640
        camera_info_K = np.array(camera_info.K).reshape([3, 3])
        camera_info_D = np.array(camera_info.D)
-       self.rgb_undist = cv2.undistort(rgb_image, camera_info_K, camera_info_D)
+       #print('BEFORE undistort AAAAAAAAAAA', self.rgb_undist.shape)
+       #frame = cv2.cvtColor(cv2.undistort(rgb_image, camera_info_K, camera_info_D), cv2.COLOR_RGB2GRAY)
+       frame = cv2.undistort(rgb_image, camera_info_K, camera_info_D)
+
+       #print('FRAME AAAAAAAAAAA', frame.shape)
+       self.rgb_undist = cv2.resize(frame, dsize=(128, 96), interpolation=cv2.INTER_CUBIC)
+       #print('FRAME RESIZEEEEEEEEEE', frame.shape)
+       #print('After undistort AAAAAAAAAAA', self.rgb_undist.shape)
+       #cv2.imwrite("/home/usi/filename{}.jpg".format(self.i), self.rgb_undist) 
+       #self.i+=1
 
     def human_readable_pose2d(self, pose):
         """Converts pose message to a human readable pose tuple."""

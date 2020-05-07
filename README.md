@@ -1,9 +1,9 @@
 # Robotics
 
-Run world without big interface
+Run world without big interface 
 
-```python
-roslaunch robotics thymio_gazebo_bringup.launch name:=thymio10 world:=arena gui:=false
+```python 
+roslaunch robotics thymio_gazebo_bringup.launch name:=thymio10 world:=pink_hall gui:=false
 ```
 Run world with big interface
 

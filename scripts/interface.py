@@ -6,6 +6,9 @@ from datetime import datetime
 from matplotlib import pyplot as plt
 from auxiliar_classes.sensor_class import proximity_sensor
 from auxiliar_classes.ross_message import ross_message
+from cv_bridge import CvBridge
+import cv2
+import os.path
 
 class interface(ross_message):
 
@@ -16,6 +19,15 @@ class interface(ross_message):
 		self.save_data = bool(int(rospy.get_param('~save_data')))
 		self.dataset_size = int(rospy.get_param('~dataset_size'))
 		
+		self.frames_collected = 0
+		self.previous_metadata = None 
+		self.offset = 0 #number of pictures already saved
+
+		if(os.path.exists('{}/metadata.csv'.format(self.working_path))):
+			self.previous_metadata = np.loadtxt('{}/metadata.csv'.format(self.working_path), delimiter=',')
+			self.offset = self.previous_metadata[-1][0]+1
+
+
 		self.pose_x = []
 		self.pose_y = []
 		self.init_publisher_subscribers_camera()
@@ -30,43 +42,16 @@ class interface(ross_message):
 		self.sensors_names = ['left', 'center_left', 'center', 'center_right',
 								'right']
 		
-		self.frames_collected = 0
-		self.chunck_number = 0
-		self.chunck_size = 1000
-		#just for debugg
-		self.lastprint = 0
-		#end debug
+		
 
-		if self.save_data:
-			self.initializeDataset()
+		self.y = np.empty((self.dataset_size,1))
+		self.ang = np.empty((self.dataset_size,1))
+		self.id = np.empty((self.dataset_size,1))
 
-	   #print(np.array(self.rgb_undist).shape)
-
-	def initializeDataset(self):
-		remaining = self.dataset_size-self.frames_collected
-		size = self.chunck_size
-		if(remaining > size):
-			size = remaining
-
-		today_str = datetime.today().strftime("%Y-%m-%d-%H-%M-%S")
-		self.data_file = h5py.File("{}/rgb_96x128_training_data_{}.h5".format(self.working_path,
-																  today_str))
-		#self.dataset = self.data_file.create_dataset('train',
-				#				(self.dataset_size, 480, 640, 3), 'f')
-		self.dataset = self.data_file.create_dataset('train',
-								(size,) + self.rgb_undist.shape, 'f', compression="gzip")
-		#l[0] + (l[1],)
-		self.dataset_y = self.data_file.create_dataset('train_y',
-								(size, 1), 'f', compression="gzip")
-		self.dataset_ang = self.data_file.create_dataset('train_ang',
-								(size, 1), 'f', compression="gzip")
-
-		self.data_counter = 0
+		self.metadata = np.empty((self.dataset_size,3))
 		self.frame_count = 0
-		self.raw_data = []
-		self.sensors_array = np.zeros((5,))
 		self.sensors_weight = np.array([-1, -2, 0, 2, 1])
-		self.proximity_weighted = 0
+
 
 	def update(self):
 		self.frame_count += 1
@@ -75,7 +60,6 @@ class interface(ross_message):
 									   sensors.proximity_center, 
 									   sensors.proximity_central_right, sensors.proximity_right])
 		self.proximity_weighted = np.dot(self.sensors_array, self.sensors_weight)
-
 
 	def renderInterface(self):
 		"""
@@ -113,13 +97,6 @@ class interface(ross_message):
 		fig.canvas.draw()
 		plt.show(block=False)
 
-	#just for debugging
-	def printStatus(self,front_colision):
-		print("--------------------------------------------------")
-		print("Front colision {}".format(front_colision))
-		print("Chunck number {} filled with {} ".format(self.chunck_number+1, self.data_counter+1))
-		print("Total number of images computed {}".format(self.frames_collected+1))
-
 	#end debugging
 	def gather_data(self):	
 		"""
@@ -132,53 +109,29 @@ class interface(ross_message):
 		mod_condition = self.frame_count % 2 == 0
 		frame_condition = self.frame_count % 3 == 1
 		front_colision = self.sensor.front_colision()
-		#print("Front colision {}".format(front_colision))
-		if (front_colision and self.data_counter <= self.dataset_size - 1 and frame_condition):
-			self.printStatus(front_colision)
-			#print("Too close! should capture")
-			self.raw_data.append(self.rgb_undist)
-			self.dataset[self.data_counter] = self.rgb_undist
-			self.dataset_y[self.data_counter] = self.proximity_weighted
-			self.dataset_ang[self.data_counter] = self.velocity.angular.z
-			self.data_counter += 1
-			self.frames_collected += 1
-		elif frame_condition:
-			self.printStatus(front_colision)
-			self.dataset[self.data_counter] = self.rgb_undist
-			self.dataset_y[self.data_counter] = self.proximity_weighted
-			self.dataset_ang[self.data_counter] = self.velocity.angular.z
-			self.raw_data.append(self.rgb_undist)
-			self.data_counter += 1
-			self.frames_collected += 1
 
-		#print("Chunck number {} filled with {} ".format(self.chunck_number+1, self.data_counter))
-		#print("Total number of images computed {}".format(self.frames_collected))
+		if ((front_colision and self.frames_collected <= self.dataset_size - 1 and frame_condition) or frame_condition):
+			print("Front collision {} --- Image number {}".format(front_colision,self.frames_collected+1))
+			#saving pictures in a folder
+			cv2.imwrite("{}/{}.png".format(self.working_path,self.frames_collected+self.offset), self.rgb_undist)
+			self.metadata[self.frames_collected][0] = self.frames_collected+self.offset
+			self.metadata[self.frames_collected][1] = self.proximity_weighted
+			self.metadata[self.frames_collected][2] = self.velocity.angular.z
 
+			self.frames_collected += 1
 
 		if self.frames_collected >=self.dataset_size:
 			print("******************************************")
-			print("******************************************")
-			print("")
-			print("CHUNCK NUMBER {} COMPLETED".format(self.chunck_number+1))
-			print("PROCEDURE ACCOMPLISHED")
-			print("")
-			print("******************************************")
+			print("{} IMAGE COMPUTED".format(self.frames_collected))
+			print("PROCEDURE COMPLETE")
 			print("******************************************")
 
-			#print(type(self.raw_data))
-			self.data_file.close()
+			if(self.previous_metadata is not None):
+				np.savetxt("{}/metadata.csv".format(self.working_path), np.concatenate((self.previous_metadata, self.metadata), axis=0), header='id, y,andular_velocity',delimiter=",")
+			else:
+				np.savetxt("{}/metadata.csv".format(self.working_path), self.metadata, header='id, y, angular_velocity', delimiter=",")
 			exit()
-		if self.data_counter >=self.chunck_size:
-			print("******************************************")
-			print("")
-			print("CHUNCK NUMBER {} COMPLETED".format(self.chunck_number+1))
-			print("")
-			print("******************************************")
-
-			#print(type(self.raw_data))
-			self.data_file.close()
-			self.initializeDataset()
-			self.chunck_number += 1
+			
 
 	def run(self):
 		self.pose_x.append(self.pose.position.x)
@@ -205,5 +158,3 @@ if __name__ == '__main__':
 		visual_interface.run()
 	except rospy.ROSInterruptException as e:
 		pass
-
-

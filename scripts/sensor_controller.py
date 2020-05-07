@@ -5,6 +5,8 @@ import sys
 import json
 import numpy as np
 import random
+from matplotlib import pyplot as plt
+
 from geometry_msgs.msg import Pose, Twist, Vector3
 from auxiliar_classes.movement_class import movement
 from auxiliar_classes.sensor_class import proximity_sensor
@@ -105,7 +107,7 @@ class ThymioController(ross_message):
         """
         Controller use in the bonus part to create noise
         """
-        random_action_change =0.0025 
+        random_action_change =0.05 
         dec = np.random.choice([1,0],p=[random_action_change,1-random_action_change]) #decide if we make noise or not
         #To make noise two conditions need to happen:
         #   First we are not already following a noise instruction
@@ -121,6 +123,36 @@ class ThymioController(ross_message):
                 self.actual_action = str(int(self.actual_action) -1)
             self.aletory = True
         return m
+
+    def interface_control(self):
+        #fig = plt.figure(1,figsize =(2,3))
+        #ax = plt.subplot(1,1,1)
+
+        fig, ax = plt.subplots(num = 1, figsize=(5, 3))
+        fig.suptitle('Debug interface ' + self.name, fontsize=20)
+        fig.patch.set_facecolor('#E0E0E0')
+        fig.patch.set_alpha(0.7)
+        plt.xlim(-1.25,1.25)
+        plt.ylim(-1.0,0.5)
+        ax.set_yticklabels([])
+        ax.set_xticklabels([])
+
+        coord = [(-0.7,0.),(0,0.),(0.7,0.),(0.7,-0.7),(0,-0.7),(-0.7,-0.7)]
+        coord_l = [[-0.8, 0.25],[-0.1, 0.25],[0.55, 0.25],[-0.8, -0.45],[-0.1, -0.45],[0.55, -0.45]]
+        text = ['Follow','Colision','Turning','Random','Flag','Avoiding']
+        for i in range(len(coord)):
+            c = 'r'
+            if i<4 and self.states[i] == self.actual_state:
+                 c = 'g'
+            elif i == 4 and self.flag_on:
+                 c = 'g'
+            elif i==5 and self.aletory:
+                 c = 'g'
+            ax.add_artist(plt.Circle(coord[i], 0.2, color=c))
+            ax.text(coord_l[i][0], coord_l[i][1], text[i], fontsize=10)            
+        fig.canvas.draw()
+        plt.show(block=False)
+        
 
 
     def get_theta_coord(self):
@@ -176,9 +208,10 @@ class ThymioController(ross_message):
                 theta,x,y,_,_ = self.get_theta_coord()
                 data = self.human_readable_pose2d(self.pose)
                 m = movement(data[0],data[1],data[2],x,y,theta)
-
+            plt.clf()
             if not self.flag_on : #Return 0 if the flag_on was not use
                 self.flag_publisher.publish(0)
+            self.interface_control()
             # sleep until next step
             self.rate.sleep()
 

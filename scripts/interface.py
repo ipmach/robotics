@@ -205,3 +205,5 @@ if __name__ == '__main__':
 		visual_interface.run()
 	except rospy.ROSInterruptException as e:
 		pass
+
+

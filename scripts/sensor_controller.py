@@ -107,7 +107,7 @@ class ThymioController(ross_message):
         """
         Controller use in the bonus part to create noise
         """
-        random_action_change =0.05 
+        random_action_change = 0.1 #0.05 
         dec = np.random.choice([1,0],p=[random_action_change,1-random_action_change]) #decide if we make noise or not
         #To make noise two conditions need to happen:
         #   First we are not already following a noise instruction
@@ -124,7 +124,7 @@ class ThymioController(ross_message):
             self.aletory = True
         return m
 
-    def interface_control(self):
+    def interface_control(self,m):
         #fig = plt.figure(1,figsize =(2,3))
         #ax = plt.subplot(1,1,1)
 
@@ -139,11 +139,13 @@ class ThymioController(ross_message):
 
         coord = [(-0.7,0.),(0,0.),(0.7,0.),(0.7,-0.7),(0,-0.7),(-0.7,-0.7)]
         coord_l = [[-0.8, 0.25],[-0.1, 0.25],[0.55, 0.25],[-0.8, -0.45],[-0.1, -0.45],[0.55, -0.45]]
-        text = ['Follow','Colision','Turning','Random','Flag','Avoiding']
+        text = ['Follow','Colision','Turning','Random','Flag','Stuck']
         for i in range(len(coord)):
             c = 'r'
-            if i<4 and self.states[i] == self.actual_state:
+            if i<3 and self.states[i] == self.actual_state:
                  c = 'g'
+            elif i ==3 and m.worry:
+                c ='g'
             elif i == 4 and self.flag_on:
                  c = 'g'
             elif i==5 and self.aletory:
@@ -211,7 +213,7 @@ class ThymioController(ross_message):
             plt.clf()
             if not self.flag_on : #Return 0 if the flag_on was not use
                 self.flag_publisher.publish(0)
-            self.interface_control()
+            self.interface_control(m)
             # sleep until next step
             self.rate.sleep()
 

@@ -72,18 +72,15 @@ class ThymioController(ross_message):
                 return Twist(linear=Vector3(.0,.0,.0,),angular=Vector3(.0,.0,.25)),False
             if self.sensor.fron_minimun_sensor() == 0:
                 self.actual_state = self.states[2]
-                theta2 = movement.difference_angle(data[2],3.2)
+                theta2 = movement.difference_angle(data[2],3.0) #Angle tu turn around with odometry
                 self.m2 = movement(data[0],data[1],data[2],0,0,theta2)
                 #To get a little closer to the wal so we can use better the back sensors
-                return Twist(linear=Vector3(.3,.0,.0,),angular=Vector3(.0,.0,.0)), True
+                return Twist(linear=Vector3(.0,.0,.0,),angular=Vector3(.0,.0,.0)), True
           
         #Turning away orthogonal to colision States: "Turning away" -> "Turning away" || "Avoiding colision"       
         if self.actual_state == self.states[2]: 
-            if not self.sensor.back_equal_sensor():
-            #print(self.m2.isover(data[0],data[1],data[2], angular)) #Maybe in the future
-            #if not self.m2.isover(data[0],data[1],data[2], angular):
-            #   print(data[2],self.m2.end_angle)
-                return Twist(linear=Vector3(.0,.0,.0,),angular=Vector3(.0,.0,.25)),False   
+            if not self.sensor.back_equal_sensor() and not self.m2.isover(data[0],data[1],data[2], 0.2):
+                return Twist(linear=Vector3(.0,.0,.0,),angular=Vector3(.0,.0,.25)),False
             self.actual_state = self.states[3]
 
         #Add instruction to run away from colision States: "Avoiding colision" -> "Following instruction"
@@ -108,7 +105,8 @@ class ThymioController(ross_message):
         """
         Controller use in the bonus part to create noise
         """
-        dec = np.random.choice([1,0],p=[0.0025,0.9975]) #decide if we make noise or not
+        random_action_change =0.0025 
+        dec = np.random.choice([1,0],p=[random_action_change,1-random_action_change]) #decide if we make noise or not
         #To make noise two conditions need to happen:
         #   First we are not already following a noise instruction
         #   Second actual state is following instructions, we dont create noise in collisions 

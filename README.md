@@ -11,10 +11,10 @@ Run world with big interface
 roslaunch robotics thymio_gazebo_bringup.launch name:=thymio10 world:=arena gui:=true
 ```
 
-Run robot with saving data
+Run robot with saving data and debug on
 
 ```python
-roslaunch robotics controller.launch dataset_size:=1000 
+roslaunch robotics controller.launch dataset_size:=1000 debug:=1
 ```
 Run robot without saving data
 
@@ -52,6 +52,8 @@ controller.launch have parameters inside to program the use of the robot:
 * save_data: flag to say if the robot gather data
 * data_path: path where the robot save the data
 * dataset_size: number of images to save
+* debug: activate debug_mode
+* debug_path: path of the logs
 
 ## Install dependencies
 

@@ -113,7 +113,7 @@ class interface(ross_message):
 		if ((front_colision and self.frames_collected <= self.dataset_size - 1 and frame_condition) or frame_condition):
 			print("Front collision {} --- Image number {}".format(front_colision,self.frames_collected+1))
 			#saving pictures in a folder
-			cv2.imwrite("{}/{}.png".format(self.working_path,self.frames_collected+self.offset), self.rgb_undist)
+			cv2.imwrite("{}/{}.jpg".format(self.working_path,self.frames_collected+self.offset), self.rgb_undist)
 			self.metadata[self.frames_collected][0] = self.frames_collected+self.offset
 			self.metadata[self.frames_collected][1] = self.proximity_weighted
 			self.metadata[self.frames_collected][2] = self.velocity.angular.z
@@ -122,12 +122,12 @@ class interface(ross_message):
 
 		if self.frames_collected >=self.dataset_size:
 			print("******************************************")
-			print("{} IMAGE COMPUTED".format(self.frames_collected))
+			print("{} IMAGEs COMPUTED".format(self.frames_collected))
 			print("PROCEDURE COMPLETE")
 			print("******************************************")
 
 			if(self.previous_metadata is not None):
-				np.savetxt("{}/metadata.csv".format(self.working_path), np.concatenate((self.previous_metadata, self.metadata), axis=0), header='id, y,andular_velocity',delimiter=",")
+				np.savetxt("{}/metadata.csv".format(self.working_path), np.concatenate((self.previous_metadata, self.metadata), axis=0), header='id, y,angular_velocity',delimiter=",")
 			else:
 				np.savetxt("{}/metadata.csv".format(self.working_path), self.metadata, header='id, y, angular_velocity', delimiter=",")
 			exit()
@@ -147,7 +147,7 @@ class interface(ross_message):
 				self.update()
 				self.gather_data()
 			self.rate.sleep()
-			#time.sleep(1)
+
 
 
 if __name__ == '__main__':

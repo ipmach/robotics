@@ -107,7 +107,7 @@ class ThymioController(ross_message):
         """
         Controller use in the bonus part to create noise
         """
-        random_action_change = 0.1 #0.05 
+        random_action_change = 0.005 #0.05 
         dec = np.random.choice([1,0],p=[random_action_change,1-random_action_change]) #decide if we make noise or not
         #To make noise two conditions need to happen:
         #   First we are not already following a noise instruction

@@ -8,7 +8,7 @@ class movement():
     Class use in by the controller to decide when a instruction is finish.
     """
 
-    def __init__(self,ini_x,ini_y,ini_angle, end_x,end_y,end_angle):
+    def __init__(self,ini_x,ini_y,ini_angle, end_x,end_y,end_angle,logger = None):
         self.ini_x = ini_x
         self.ini_y = ini_y
         self.end_x = end_x
@@ -21,6 +21,7 @@ class movement():
         self.iteration = 0
         self.max_iteration =200
         self.worry = False
+        self.logger = logger
         #print('data set ini: x: {0} y {1} angle {2} end: x {3} y {4} angle {5}'.format(self.ini_x,self.ini_y,ini_angle,self.end_x,self.end_y,self.end_angle))
 
     @staticmethod
@@ -51,7 +52,8 @@ class movement():
         high_range = movement.correctAngle(self.end_angle + self.tolerance) 
         #if self.end_angle == 0:
         #    low_range = 0
-        print('Actual angle: {0}, low range: {1}, high range: {2}'.format(angle,low_range,high_range))
+        if not (self.logger == None):
+            self.logger.debug('Actual angle: {0}, low range: {1}, high range: {2}'.format(angle,low_range,high_range))
         #print(self.iteration)
         return True if low_range <= angle <= high_range else False
 
@@ -70,8 +72,11 @@ class movement():
         self.iteration += 1
         if self.iteration > self.max_iteration * 0.6:
             self.worry = True
-            print("Iterations until break the instruction: {0}".format(self.max_iteration - self.iteration))
+            if not (self.logger == None):
+                self.logger.warning("Iterations until break the instruction: {0}".format(self.max_iteration - self.iteration))
         if self.max_iteration == self.iteration:
+            if not (self.logger == None):
+                self.logger.critical("Breaking instruction, robot was stuck")
             return True
 
         key = [False,False,False]

@@ -9,6 +9,7 @@ from auxiliar_classes.ross_message import ross_message
 from cv_bridge import CvBridge
 import cv2
 import os.path
+import logging
 
 class interface(ross_message):
 
@@ -18,11 +19,17 @@ class interface(ross_message):
 		self.working_path = rospy.get_param('~data_path')
 		self.save_data = bool(int(rospy.get_param('~save_data')))
 		self.dataset_size = int(rospy.get_param('~dataset_size'))
-		
+		self.debug =  bool(int(rospy.get_param('~debug')))
 		self.frames_collected = 0
 		self.previous_metadata = None 
 		self.offset = 0 #number of pictures already saved
-
+		#Logss
+		path = rospy.get_param('~debug_path') + 'interface.log'    
+		if self.debug:  
+			self.logger = interface.setup_logger('sensor_controller', path,level = logging.DEBUG)
+		else:
+			self.logger = interface.setup_logger('sensor_controller', path,level = logging.NOTSET)
+		self.logger.info('Interface start ' + self.name)
 		if(os.path.exists('{}/metadata.csv'.format(self.working_path))):
 			self.previous_metadata = np.loadtxt('{}/metadata.csv'.format(self.working_path), delimiter=',')
 			self.offset = self.previous_metadata[-1][0]+1
@@ -112,6 +119,7 @@ class interface(ross_message):
 
 		if ((front_colision and self.frames_collected <= self.dataset_size - 1 and frame_condition) or frame_condition):
 			print("Front collision {} --- Image number {}".format(front_colision,self.frames_collected+1))
+			self.logger.info("Front collision {} --- Image number {}".format(front_colision,self.frames_collected+1))
 			#saving pictures in a folder
 			cv2.imwrite("{}/{}.jpg".format(self.working_path,self.frames_collected+self.offset), self.rgb_undist)
 			self.metadata[self.frames_collected][0] = self.frames_collected+self.offset

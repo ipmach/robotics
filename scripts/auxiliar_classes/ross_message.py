@@ -10,6 +10,7 @@ import message_filters
 import numpy as np
 import cv2
 from auxiliar_classes.sensor_class import proximity_sensor
+import logging
 
 
 class ross_message:
@@ -63,6 +64,7 @@ class ross_message:
             Range,  # message type
             self.log_rear_left_range  # function that hanldes incoming messages
         )
+        
     def init_publisher_subscribers_odometry(self, publisher = True, subscriber = True):
         # create velocity publisher
         if publisher:

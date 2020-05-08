@@ -35,9 +35,11 @@ class ThymioController(ross_message):
         self.name = rospy.get_param('~robot_name')
 
         #Logss
-        path = '/home/usi/catkin_ws/src/robotics/logs/control_sensor.log'
-       
-        self.logger = setup_logger('sensor_controller', path)
+        path = rospy.get_param('~debug_path') + 'control_sensor.log'    
+        if self.debug:  
+            self.logger = ThymioController.setup_logger('sensor_controller', path,level = logging.DEBUG)
+        else:
+            self.logger = ThymioController.setup_logger('sensor_controller', path,level = logging.NOTSET)
         self.logger.info('Robot start moving ' + self.name)
         #Initialize publisher and subscribers
         self.init_publisher_subscribers_sensors()
@@ -87,7 +89,7 @@ class ThymioController(ross_message):
                 self.logger.debug('new state: Turning away')
                 self.actual_state = self.states[2]
                 theta2 = movement.difference_angle(data[2],3.0) #Angle tu turn around with odometry
-                self.m2 = movement(data[0],data[1],data[2],0,0,theta2)
+                self.m2 = movement(data[0],data[1],data[2],0,0,theta2, logger = self.logger)
                 #To get a little closer to the wal so we can use better the back sensors
                 return Twist(linear=Vector3(.0,.0,.0,),angular=Vector3(.0,.0,.0)), True
           
@@ -101,7 +103,7 @@ class ThymioController(ross_message):
         #Add instruction to run away from colision States: "Avoiding colision" -> "Following instruction"
         if self.actual_state == self.states[3]:
             data = self.human_readable_pose2d(self.pose)
-            m = movement(data[0],data[1],data[2],2,0,0)
+            m = movement(data[0],data[1],data[2],2,0,0, logger = self.logger)
             if self.actual_action == "1":
                 self.actual_action = str(max(np.array(self.actions.keys()).astype(np.int)))
             else:
@@ -129,7 +131,7 @@ class ThymioController(ross_message):
             self.logger.debug("Aleatory move")
             data = self.human_readable_pose2d(self.pose)
             theta = np.random.choice([1,-1],p=[0.5,0.5]) * random.randint(0, 60) *0.1
-            m = movement(data[0],data[1],data[2],0,0,theta)
+            m = movement(data[0],data[1],data[2],0,0,theta, logger = self.logger)
             self.random_angular = 0.3 * m.recommendAngular()
             if self.actual_action == "1":
                 self.actual_action = str(max(np.array(self.actions.keys()).astype(np.int)))
@@ -190,7 +192,7 @@ class ThymioController(ross_message):
         #Initialize movement
         theta,x,y,_,_ = self.get_theta_coord()
         data = self.human_readable_pose2d(self.pose)
-        m = movement(data[0],data[1],data[2],x,y,theta)
+        m = movement(data[0],data[1],data[2],x,y,theta, logger = self.logger)
 
         while not rospy.is_shutdown():
             self.flag_on = False
@@ -223,7 +225,7 @@ class ThymioController(ross_message):
                 #Initialize again movement
                 theta,x,y,_,_ = self.get_theta_coord()
                 data = self.human_readable_pose2d(self.pose)
-                m = movement(data[0],data[1],data[2],x,y,theta)
+                m = movement(data[0],data[1],data[2],x,y,theta, logger = self.logger)
             plt.clf()
             if not self.flag_on : #Return 0 if the flag_on was not use
                 self.flag_publisher.publish(0)
@@ -234,7 +236,7 @@ class ThymioController(ross_message):
 
     def stop(self):
         """Stops the robot."""
-
+        self.logger.info("Robot stop")
         self.velocity_publisher.publish(
             Twist()  # set velocities to 0
         )

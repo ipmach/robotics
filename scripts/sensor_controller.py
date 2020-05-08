@@ -5,12 +5,16 @@ import sys
 import json
 import numpy as np
 import random
+import logging
+
 from matplotlib import pyplot as plt
 
 from geometry_msgs.msg import Pose, Twist, Vector3
 from auxiliar_classes.movement_class import movement
 from auxiliar_classes.sensor_class import proximity_sensor
 from auxiliar_classes.ross_message import ross_message
+
+
 
 class ThymioController(ross_message):
 
@@ -27,8 +31,14 @@ class ThymioController(ross_message):
             self.actions = json.load(f)
         self.random_noise = bool(int(rospy.get_param('~random_noise')))
         self.use_sensors =  bool(int(rospy.get_param('~use_sensors')))
+        self.debug =  bool(int(rospy.get_param('~debug')))
         self.name = rospy.get_param('~robot_name')
 
+        #Logss
+        path = '/home/usi/catkin_ws/src/robotics/logs/control_sensor.log'
+       
+        self.logger = setup_logger('sensor_controller', path)
+        self.logger.info('Robot start moving ' + self.name)
         #Initialize publisher and subscribers
         self.init_publisher_subscribers_sensors()
         self.init_publisher_subscribers_odometry()
@@ -63,6 +73,7 @@ class ThymioController(ross_message):
 
         #Detect an inminent colision States: "Following instruction"  -> "Colision detected"
         if  self.use_sensors and self.actual_state == self.states[0] and self.sensor.front_colision():
+            self.logger.debug('new state: colision detected')
             self.actual_state = self.states[1] 
             return Twist(linear=Vector3(.0,.0,.0,),angular=Vector3(.0,.0,.0)),False 
 
@@ -73,6 +84,7 @@ class ThymioController(ross_message):
             if self.sensor.fron_minimun_sensor() > 0:
                 return Twist(linear=Vector3(.0,.0,.0,),angular=Vector3(.0,.0,.25)),False
             if self.sensor.fron_minimun_sensor() == 0:
+                self.logger.debug('new state: Turning away')
                 self.actual_state = self.states[2]
                 theta2 = movement.difference_angle(data[2],3.0) #Angle tu turn around with odometry
                 self.m2 = movement(data[0],data[1],data[2],0,0,theta2)
@@ -84,6 +96,7 @@ class ThymioController(ross_message):
             if not self.sensor.back_equal_sensor() and not self.m2.isover(data[0],data[1],data[2], 0.2):
                 return Twist(linear=Vector3(.0,.0,.0,),angular=Vector3(.0,.0,.25)),False
             self.actual_state = self.states[3]
+            self.logger.debug('new state: Avoiding colision')
 
         #Add instruction to run away from colision States: "Avoiding colision" -> "Following instruction"
         if self.actual_state == self.states[3]:
@@ -94,8 +107,8 @@ class ThymioController(ross_message):
             else:
                 self.actual_action = str(int(self.actual_action) -1)
             self.actual_state = self.states[0]
+            self.logger.debug('new state: Following instruction')
             self.flag_on = True
-            print("FLAAAG ACTIVATE ", self.flag_on)
 
         #Following and changing instructions States: "Following instruction"  -> "Following instruction"
         if not m.isover(data[0],data[1],data[2], angular):
@@ -113,6 +126,7 @@ class ThymioController(ross_message):
         #   First we are not already following a noise instruction
         #   Second actual state is following instructions, we dont create noise in collisions 
         if dec and self.aletory == False and self.actual_state == self.states[0]:
+            self.logger.debug("Aleatory move")
             data = self.human_readable_pose2d(self.pose)
             theta = np.random.choice([1,-1],p=[0.5,0.5]) * random.randint(0, 60) *0.1
             m = movement(data[0],data[1],data[2],0,0,theta)
@@ -125,9 +139,9 @@ class ThymioController(ross_message):
         return m
 
     def interface_control(self,m):
-        #fig = plt.figure(1,figsize =(2,3))
-        #ax = plt.subplot(1,1,1)
-
+        """
+        Debug screen
+        """
         fig, ax = plt.subplots(num = 1, figsize=(5, 3))
         fig.suptitle('Debug interface ' + self.name, fontsize=20)
         fig.patch.set_facecolor('#E0E0E0')
@@ -189,7 +203,6 @@ class ThymioController(ross_message):
             self.velocity_publisher.publish(velocity)
 
             if self.flag_on:
-                print("FLAAAG ACTIVATE CHECK ", self.flag_on)
                 self.flag_publisher.publish(1)
 
             # publish velocity message
@@ -198,6 +211,7 @@ class ThymioController(ross_message):
                 self.flag_on = True
             #Change action        
             if isfinish:
+                self.logger.debug("Instruction finish")
                 self.aletory = False
                 self.flag_on = True
                 self.flag_publisher.publish(1)
@@ -213,7 +227,8 @@ class ThymioController(ross_message):
             plt.clf()
             if not self.flag_on : #Return 0 if the flag_on was not use
                 self.flag_publisher.publish(0)
-            self.interface_control(m)
+            if self.debug:
+                self.interface_control(m)
             # sleep until next step
             self.rate.sleep()
 

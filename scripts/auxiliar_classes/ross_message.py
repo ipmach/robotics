@@ -200,3 +200,17 @@ class ross_message:
         """
         rear_left =  100 * data.range/(data.max_range - data.min_range)
         self.sensor.proximity_rear_left = rear_left
+
+    @staticmethod
+    def setup_logger(name, log_file, level=logging.DEBUG):
+        """To setup as many loggers as you want"""
+        formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+
+        handler = logging.FileHandler(log_file)
+        handler.setFormatter(formatter)
+
+        logger = logging.getLogger(name)
+        logger.setLevel(level)
+        logger.addHandler(handler)
+
+        return logger

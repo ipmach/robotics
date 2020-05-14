@@ -44,7 +44,8 @@ class interface(ross_message):
 		self.rate = rospy.Rate(10)
 		
 		self.subscriber_names = ["/proximity/left", "/proximity/center_left",
-								"/proximity/center", "/proximity/center_right", "/proximity/right"
+								"/proximity/center", "/proximity/center_right",
+								 "/proximity/right"
 								]
 		self.sensors_names = ['left', 'center_left', 'center', 'center_right',
 								'right']
@@ -55,20 +56,25 @@ class interface(ross_message):
 		self.ang = np.empty((self.dataset_size,1))
 		self.id = np.empty((self.dataset_size,1))
 
-		self.metadata = np.empty((self.dataset_size,3))
+		self.metadata = np.empty((self.dataset_size, 3))
+		self.sensors_data = np.empty((self.dataset_size, 5))
 		self.frame_count = 0
 		self.sensors_weight = np.array([-1, -2, 0, 2, 1])
 
 
 	def update(self):
-		self.frame_count += 1
 		sensors = self.sensor
-		self.sensors_array = np.array([sensors.proximity_left, sensors.proximity_central_left,
-									   sensors.proximity_center, 
-									   sensors.proximity_central_right, sensors.proximity_right])
-		self.proximity_weighted = np.dot(self.sensors_array, self.sensors_weight)
+		self.sensors_array = np.array([sensors.proximity_left,
+		 sensors.proximity_central_left, sensors.proximity_center,
+		 sensors.proximity_central_right, sensors.proximity_right])
+		self.proximity_weighted = np.dot(self.sensors_array,
+										 self.sensors_weight)
+		print("sensors {}".format(self.sensors_array))
+		print("y {}".format(self.proximity_weighted))
+
 
 	def renderInterface(self):
+		self.frame_count += 1
 		"""
 		Render interface
 		"""
@@ -115,16 +121,26 @@ class interface(ross_message):
 
 		mod_condition = self.frame_count % 2 == 0
 		frame_condition = self.frame_count % 3 == 1
+		frame_condition_y0 = self.frame_count % 5 == 1
 		front_colision = self.sensor.front_colision()
 
-		if ((front_colision and self.frames_collected <= self.dataset_size - 1 and frame_condition) or frame_condition):
-			print("Front collision {} --- Image number {}".format(front_colision,self.frames_collected+1))
-			self.logger.info("Front collision {} --- Image number {}".format(front_colision,self.frames_collected+1))
+		if (  (front_colision 
+				and
+				self.frames_collected <= self.dataset_size - 1 
+				and 
+				frame_condition)
+			or frame_condition_y0):
+
+			print("Front collision {} --- Image number {}".
+				format(front_colision,self.frames_collected+1))
+			self.logger.info("Front collision {} --- Image number {}".
+				format(front_colision, self.frames_collected+1))
 			#saving pictures in a folder
 			cv2.imwrite("{}/{}.jpg".format(self.working_path,self.frames_collected+self.offset), self.rgb_undist)
 			self.metadata[self.frames_collected][0] = self.frames_collected+self.offset
 			self.metadata[self.frames_collected][1] = self.proximity_weighted
 			self.metadata[self.frames_collected][2] = self.velocity.angular.z
+			self.sensors_data[self.frames_collected] = self.sensors_array
 
 			self.frames_collected += 1
 
@@ -137,7 +153,11 @@ class interface(ross_message):
 			if(self.previous_metadata is not None):
 				np.savetxt("{}/metadata.csv".format(self.working_path), np.concatenate((self.previous_metadata, self.metadata), axis=0), header='id, y,angular_velocity',delimiter=",")
 			else:
-				np.savetxt("{}/metadata.csv".format(self.working_path), self.metadata, header='id, y, angular_velocity', delimiter=",")
+				np.savetxt("{}/metadata.csv".format(self.working_path), self.metadata,
+					header='id,y,angular_velocity',
+					delimiter=",")
+				np.savetxt("{}/sensors.csv".format(self.working_path), self.sensors_data,
+					header='left,center_left,center,center_right, right', delimiter=",")
 			exit()
 			
 

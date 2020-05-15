@@ -40,7 +40,7 @@ class CNNController(ross_message):
 		)
 
 		# set node update frequency in Hz
-		self.rate = rospy.Rate(10)
+		self.rate = rospy.Rate(1)
 
 
 	def initializeNetwork(self):
@@ -78,7 +78,7 @@ class CNNController(ross_message):
 		frame = np.empty((1,96,128,3))
 		frame[0] = self.rgb_undist
 
-		angular_velocity = self.model.predict(frame) * 10
+		angular_velocity = self.model.predict(frame) * -0.157
 
 		print('ANGULAR VELOCITY PREDICTED {}'.format(angular_velocity))
 

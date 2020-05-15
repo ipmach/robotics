@@ -8,7 +8,7 @@ roslaunch robotics thymio_gazebo_bringup.launch name:=thymio10 world:=pink_hall 
 Run world with big interface
 
 ```python
-roslaunch robotics thymio_gazebo_bringup.launch name:=thymio10 world:=arena gui:=true
+roslaunch robotics thymio_gazebo_bringup.launch name:=thymio10 world:=pink_hall gui:=true
 ```
 
 Run robot with saving data and debug on
@@ -20,6 +20,12 @@ Run robot without saving data
 
 ```python
 roslaunch robotics controller.launch save_data:=0 
+```
+
+RUN ROBOT WITH CNN CONTROLLER
+
+```python
+roslaunch robotics cnn_controller.launch save_data:=0 
 ```
 
 ## Build ros package

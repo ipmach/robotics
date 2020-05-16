@@ -41,7 +41,8 @@ class CNNController(ross_message):
 		self.model = tf.keras.models.load_model(self.working_path+'/model.h5')
 		self.init_publisher_subscribers_camera()
 		self.init_publisher_subscribers_odometry()
-
+		self.init_publisher_subscribers_sensors()
+		self.sensor = proximity_sensor()
 
 		rospy.on_shutdown(self.stop)
 		# set node update frequency in Hz
@@ -84,20 +85,14 @@ class CNNController(ross_message):
 		frame = np.empty((1,96,128,3))
 		frame[0] = self.rgb_undist
 		#print(np.array(frame).shape)
+		a,b = self.sensor.blind_spot_colision()		#Blind spots
+		if a: #Blind spot found 
+			self.logger.info('Blind spot found, angular correction {}'.format(b))
+			return Twist(linear=Vector3(.1,.0,.0,),angular=Vector3(.0,.0,b )) 
+
 		angular_velocity = self.model.predict(frame/255.)  * -10
 		self.logger.debug('angular velocity: {}'.format(angular_velocity) )
-		return Twist(
-			linear=Vector3(
-				.1,  # moves forward .2 m/s
-				.0,
-				.0,
-			),
-			angular=Vector3(
-				.0,
-				.0,
-				angular_velocity 
-			)
-		)
+		return Twist(linear=Vector3(.1,.0,.0,),angular=Vector3(.0,.0,angular_velocity))
 
 	def run(self):
 		flag_iter = 10

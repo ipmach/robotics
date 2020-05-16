@@ -16,7 +16,19 @@ class proximity_sensor():
     proximity_central_right = 100 
     proximity_central_left = 100
     threshold = 95 #Distance tolerance to hit colision
+    threshold_min = 35 #Distance tolerance to hit colision
     max_unit = 108 #Number that we ignore reading
+
+
+    def blind_spot_colision(self):
+        """
+        Detect blind spot colisions for the camera 
+        """
+        if self.proximity_left <= self.threshold_min:
+            return True, -1
+        if self.proximity_right <= self.threshold_min:
+            return True, 1
+        return False,0
 
     def front_colision(self):
         """

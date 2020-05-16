@@ -8,6 +8,7 @@ from geometry_msgs.msg import Pose, Twist, Vector3
 from auxiliar_classes.movement_class import movement
 from auxiliar_classes.sensor_class import proximity_sensor
 from auxiliar_classes.ross_message import ross_message
+import logging
 
 import tensorflow as tf
 from tensorflow import keras
@@ -28,16 +29,20 @@ class CNNController(ross_message):
 
 		#Dictionary with the instructions  and other parameters
 		self.name = rospy.get_param('~robot_name')
-		self.working_path = rospy.get_param('~data_path')
+		self.working_path = rospy.get_param('~model_path')
+		self.debug =  bool(int(rospy.get_param('~debug')))
+		path = rospy.get_param('~debug_path') + 'cnn_control_sensor.log' 
+		if self.debug:  
+			self.logger = CNNController.setup_logger('sensor_controller', path,level = logging.DEBUG)
+		else:
+			self.logger = CNNController.setup_logger('sensor_controller', path,level = logging.NOTSET)
+		self.logger.info('Robot start moving ' + self.name)
 		#self.model = self.initializeNetwork()
-		self.model = tf.keras.models.load_model(self.working_path+'/modelB.h5')
+		self.model = tf.keras.models.load_model(self.working_path+'/model.h5')
 		self.init_publisher_subscribers_camera()
+		self.init_publisher_subscribers_odometry()
 
-		self.velocity_publisher = rospy.Publisher(
-			self.name + '/cmd_vel',  # name of the topic
-			Twist,  # message type
-			queue_size=10  # queue size
-		)
+
 		rospy.on_shutdown(self.stop)
 		# set node update frequency in Hz
 		self.rate = rospy.Rate(10)
@@ -80,9 +85,7 @@ class CNNController(ross_message):
 		frame[0] = self.rgb_undist
 		#print(np.array(frame).shape)
 		angular_velocity = self.model.predict(frame/255.)  * -10
-
-		print('ANGULAR VELOCITY PREDICTED {}'.format(angular_velocity))
-
+		self.logger.debug('angular velocity: {}'.format(angular_velocity) )
 		return Twist(
 			linear=Vector3(
 				.1,  # moves forward .2 m/s
@@ -97,15 +100,23 @@ class CNNController(ross_message):
 		)
 
 	def run(self):
+		flag_iter = 10
+		i = 0
 		while not rospy.is_shutdown():
-
 			velocity = self.explore()
 			self.velocity_publisher.publish(velocity)
+			i +=1
+			if i== flag_iter:
+				i = 0
+				self.flag_publisher.publish(1)
+			else:
+				self.flag_publisher.publish(0)
 			# sleep until next step
 			self.rate.sleep()
 
 	def stop(self):
 		"""Stops the robot."""
+		self.logger.info("Robot stop")
 		self.velocity_publisher.publish(
 			Twist()  # set velocities to 0
 		)

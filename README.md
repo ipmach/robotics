@@ -22,7 +22,7 @@ Run robot without saving data
 roslaunch robotics controller.launch save_data:=0 
 ```
 
-RUN ROBOT WITH CNN CONTROLLER
+Run robot with cnn controller
 
 ```python
 roslaunch robotics cnn_controller.launch save_data:=0 

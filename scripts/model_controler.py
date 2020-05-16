@@ -30,7 +30,7 @@ class CNNController(ross_message):
 		self.name = rospy.get_param('~robot_name')
 		self.working_path = rospy.get_param('~data_path')
 		#self.model = self.initializeNetwork()
-		self.model = tf.keras.models.load_model(self.working_path+'/model.h5')
+		self.model = tf.keras.models.load_model(self.working_path+'/modelB.h5')
 		self.init_publisher_subscribers_camera()
 
 		self.velocity_publisher = rospy.Publisher(
@@ -38,9 +38,10 @@ class CNNController(ross_message):
 			Twist,  # message type
 			queue_size=10  # queue size
 		)
-
+		rospy.on_shutdown(self.stop)
 		# set node update frequency in Hz
-		self.rate = rospy.Rate(1)
+		self.rate = rospy.Rate(10)
+
 
 
 	def initializeNetwork(self):
@@ -77,8 +78,8 @@ class CNNController(ross_message):
 
 		frame = np.empty((1,96,128,3))
 		frame[0] = self.rgb_undist
-
-		angular_velocity = self.model.predict(frame) * -0.157
+		#print(np.array(frame).shape)
+		angular_velocity = self.model.predict(frame/255.)  * -10
 
 		print('ANGULAR VELOCITY PREDICTED {}'.format(angular_velocity))
 
@@ -101,6 +102,13 @@ class CNNController(ross_message):
 			velocity = self.explore()
 			self.velocity_publisher.publish(velocity)
 			# sleep until next step
+			self.rate.sleep()
+
+	def stop(self):
+		"""Stops the robot."""
+		self.velocity_publisher.publish(
+			Twist()  # set velocities to 0
+		)
 		self.rate.sleep()
 
 if __name__ == '__main__':

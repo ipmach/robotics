@@ -40,11 +40,11 @@ re.
 
 ## Scripts
 
-* part1.py: main code .
+* sensor_controller.py: main code .
 * momevement_class.py: class use to work with odometry of the robot.
 * sensor_class.py: class use to work with the sensor of the robot.
 * interface.py: interface of the robot (plots,graphs ect...).
-* neuronalNetwork.py: empty class used to try to see how to collect data (can be remove).
+* model_controller.py: empty class used to try to see how to collect data (can be remove).
 
 momevement and sensor have all the functions and logic need it to work with sensors and direction of the robot.
 
@@ -61,10 +61,6 @@ controller.launch have parameters inside to program the use of the robot:
 * debug: activate debug_mode
 * debug_path: path of the logs
 
-## Install dependencies
 
-```python
-pip install hdf5 
-```
 
 

@@ -16,7 +16,7 @@ class proximity_sensor():
     proximity_central_right = 100 
     proximity_central_left = 100
     threshold = 95 #Distance tolerance to hit colision
-    threshold_min = 35 #Distance tolerance to hit colision
+    threshold_min = 45 #Distance tolerance to hit colision
     max_unit = 108 #Number that we ignore reading
 
 

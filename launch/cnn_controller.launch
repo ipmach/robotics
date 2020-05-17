@@ -9,6 +9,7 @@ are set via terminal and can have a default value -->
 <arg name="save_data" default="1"/>
 <arg name="data_path" default="/home/usi/catkin_ws/src/robotics/data"/>
 <arg name="model_path" default="/home/usi/catkin_ws/src/robotics/model"/>
+<arg name="model" default="model.h5"/>
 <arg name="dataset_size" default="25"/>
 <arg name="use_sensors" default="1" />
 <arg name="random_noise" default="1" />
@@ -24,6 +25,7 @@ are set via terminal and can have a default value -->
     <!-- paramters must be set in the launchfile -->
     <param name="robot_name" value="/$(arg robot_name)" />
     <param name="model_path" value="$(arg model_path)" />
+    <param name="model" value="/$(arg model)" />
     <param name="debug" value="$(arg debug)" />
     <param name="debug_path" value="$(arg debug_path)" />
     <!-- Add in the future a funcionality to use the train net-->

@@ -42,6 +42,7 @@ re.
 
 * sensor_controller.py: main code .
 * momevement_class.py: class use to work with odometry of the robot.
+* ros_messages.py: class with all the subcribers and publishers
 * sensor_class.py: class use to work with the sensor of the robot.
 * interface.py: interface of the robot (plots,graphs ect...).
 * model_controller.py: empty class used to try to see how to collect data (can be remove).
@@ -50,7 +51,7 @@ momevement and sensor have all the functions and logic need it to work with sens
 
 ## Launch 
 
-controller.launch have parameters inside to program the use of the robot:
+controller.launch/ cnn_controller.launch have parameters inside to program the use of the robot:
 * robot_name: name of the robot.
 * instruction_path: path of the general instruction to follow. (exercise2.json default, exercise1.json is to move in a 8).
 * use_sensors: flag to tell the robot if to use sensors (Close loop or Open loop).
@@ -60,6 +61,8 @@ controller.launch have parameters inside to program the use of the robot:
 * dataset_size: number of images to save
 * debug: activate debug_mode
 * debug_path: path of the logs
+* model: model use
+* model_path: path of the folder of the model
 
 
 

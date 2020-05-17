@@ -38,7 +38,7 @@ class CNNController(ross_message):
 			self.logger = CNNController.setup_logger('sensor_controller', path,level = logging.NOTSET)
 		self.logger.info('Robot start moving ' + self.name)
 		#self.model = self.initializeNetwork()
-		self.model = tf.keras.models.load_model(self.working_path+'/model.h5')
+		self.model = tf.keras.models.load_model(self.working_path+rospy.get_param('~model'))
 		self.init_publisher_subscribers_camera()
 		self.init_publisher_subscribers_odometry()
 		self.init_publisher_subscribers_sensors()
@@ -88,7 +88,7 @@ class CNNController(ross_message):
 		a,b = self.sensor.blind_spot_colision()		#Blind spots
 		if a: #Blind spot found 
 			self.logger.info('Blind spot found, angular correction {}'.format(b))
-			return Twist(linear=Vector3(.1,.0,.0,),angular=Vector3(.0,.0,b )) 
+			return Twist(linear=Vector3(.1,.0,.0,),angular=Vector3(.0,.0,b*2 )) 
 
 		angular_velocity = self.model.predict(frame/255.)  * -10
 		self.logger.debug('angular velocity: {}'.format(angular_velocity) )

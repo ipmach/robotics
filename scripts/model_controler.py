@@ -28,7 +28,7 @@ class CNNController(ross_message):
 		    'thymio_controller'  # name of the node
 		)
 
-		self.queue = [0 for i in range(25)]
+		self.queue = [0 for i in range(3)]
 		#Dictionary with the instructions  and other parameters
 		self.name = rospy.get_param('~robot_name')
 		self.working_path = rospy.get_param('~model_path')
@@ -100,8 +100,8 @@ class CNNController(ross_message):
 		self.queue.append(angular_velocity)
 		self.queue.pop(0)
 		angular_velocity = sum(self.queue)/len(self.queue)
-			
-		#print('Angular velocity prediction', angular_velocity)
+	
+		print('Angular velocity prediction', angular_velocity)
 		self.logger.debug('angular velocity: {}'.format(angular_velocity) )
 		#print('CNN decision')
 		return Twist(linear=Vector3(.1,.0,.0,),angular=Vector3(.0,.0,angular_velocity))

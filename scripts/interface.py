@@ -112,6 +112,8 @@ class interface(ross_message):
 
 	#end debugging
 	def gather_data(self):	
+
+		print(self.sensors_array)
 		"""
 		Gather data for database
 		"""

@@ -15,6 +15,7 @@ from tensorflow import keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
+#from queue import Queue 
 #from keras.models import load_model
 
 class CNNController(ross_message):
@@ -27,6 +28,7 @@ class CNNController(ross_message):
 		    'thymio_controller'  # name of the node
 		)
 
+		self.queue = [0 for i in range(25)]
 		#Dictionary with the instructions  and other parameters
 		self.name = rospy.get_param('~robot_name')
 		self.working_path = rospy.get_param('~model_path')
@@ -85,14 +87,25 @@ class CNNController(ross_message):
 		frame = np.empty((1,96,128,3))
 		frame[0] = self.rgb_undist
 		#print(np.array(frame).shape)
+		
 		a,b = self.sensor.blind_spot_colision()		#Blind spots
 		if a: #Blind spot found 
 			self.logger.info('Blind spot found, angular correction {}'.format(b))
+			print('SENSOR decision')
 			return Twist(linear=Vector3(.1,.0,.0,),angular=Vector3(.0,.0,b*2 )) 
-
+			 #return Twist(linear=Vector3(.0,.0,.0,),angular=Vector3(.0,.0,.0))
+		 
 		angular_velocity = self.model.predict(frame/255.)  * -10
+		
+		self.queue.append(angular_velocity)
+		self.queue.pop(0)
+		angular_velocity = sum(self.queue)/len(self.queue)
+			
+		#print('Angular velocity prediction', angular_velocity)
 		self.logger.debug('angular velocity: {}'.format(angular_velocity) )
+		#print('CNN decision')
 		return Twist(linear=Vector3(.1,.0,.0,),angular=Vector3(.0,.0,angular_velocity))
+		#return Twist(linear=Vector3(.0,.0,.0,),angular=Vector3(.0,.0,.0))
 
 	def run(self):
 		flag_iter = 10

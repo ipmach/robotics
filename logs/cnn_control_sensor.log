@@ -383,3 +383,400 @@
 2020-05-16 20:01:26,426 DEBUG angular velocity: [[-0.75152427]]
 2020-05-16 20:01:26,527 DEBUG angular velocity: [[-0.52848023]]
 2020-05-16 20:01:26,556 INFO Robot stop
+2020-05-22 14:42:29,707 INFO Robot start moving /thymio10
+2020-05-22 14:43:03,103 INFO Blind spot found, angular correction 1
+2020-05-22 14:43:03,199 INFO Blind spot found, angular correction 1
+2020-05-22 14:43:04,212 INFO Blind spot found, angular correction 1
+2020-05-22 14:43:04,313 INFO Blind spot found, angular correction 1
+2020-05-22 14:43:06,107 INFO Blind spot found, angular correction 1
+2020-05-22 14:43:47,045 INFO Blind spot found, angular correction 1
+2020-05-22 14:43:47,552 INFO Blind spot found, angular correction 1
+2020-05-22 14:43:47,647 INFO Blind spot found, angular correction 1
+2020-05-22 14:43:48,874 INFO Blind spot found, angular correction 1
+2020-05-22 14:43:48,974 INFO Blind spot found, angular correction 1
+2020-05-22 14:43:49,986 INFO Blind spot found, angular correction 1
+2020-05-22 14:43:50,094 INFO Blind spot found, angular correction 1
+2020-05-22 14:43:51,325 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:08,909 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:09,007 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:09,813 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:09,923 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:10,929 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:11,029 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:12,455 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:12,558 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:13,498 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:13,597 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:15,140 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:15,747 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:15,845 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:17,163 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:17,272 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:48,437 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:49,251 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:50,362 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:51,275 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:52,228 INFO Blind spot found, angular correction 1
+2020-05-22 14:45:53,259 INFO Blind spot found, angular correction 1
+2020-05-22 14:46:34,921 INFO Blind spot found, angular correction 1
+2020-05-22 14:47:37,835 INFO Blind spot found, angular correction 1
+2020-05-22 14:47:39,568 INFO Blind spot found, angular correction 1
+2020-05-22 14:47:41,053 INFO Blind spot found, angular correction 1
+2020-05-22 14:49:07,090 INFO Blind spot found, angular correction 1
+2020-05-22 14:49:07,191 INFO Blind spot found, angular correction 1
+2020-05-22 14:50:15,508 INFO Blind spot found, angular correction 1
+2020-05-22 14:50:15,608 INFO Blind spot found, angular correction 1
+2020-05-22 14:53:02,850 INFO Blind spot found, angular correction 1
+2020-05-22 14:53:02,945 INFO Blind spot found, angular correction 1
+2020-05-22 14:53:04,395 INFO Blind spot found, angular correction 1
+2020-05-22 14:53:04,498 INFO Blind spot found, angular correction 1
+2020-05-22 14:53:06,423 INFO Blind spot found, angular correction 1
+2020-05-22 14:53:06,526 INFO Blind spot found, angular correction 1
+2020-05-22 14:55:30,144 INFO Robot stop
+2020-05-22 14:57:25,991 INFO Robot start moving /thymio10
+2020-05-22 14:57:52,584 INFO Robot stop
+2020-05-22 15:42:37,041 INFO Robot start moving /thymio10
+2020-05-22 15:42:55,647 INFO Blind spot found, angular correction 1
+2020-05-22 15:42:56,165 INFO Blind spot found, angular correction 1
+2020-05-22 15:42:56,263 INFO Blind spot found, angular correction 1
+2020-05-22 15:42:56,870 INFO Blind spot found, angular correction 1
+2020-05-22 15:42:57,809 INFO Blind spot found, angular correction 1
+2020-05-22 15:42:57,911 INFO Blind spot found, angular correction 1
+2020-05-22 15:42:59,053 INFO Blind spot found, angular correction 1
+2020-05-22 15:42:59,152 INFO Blind spot found, angular correction 1
+2020-05-22 15:43:00,695 INFO Blind spot found, angular correction 1
+2020-05-22 15:43:01,409 INFO Blind spot found, angular correction 1
+2020-05-22 15:44:48,118 INFO Robot stop
+2020-05-22 15:48:55,529 INFO Robot start moving /thymio10
+2020-05-22 15:49:21,640 INFO Robot stop
+2020-05-22 15:51:26,323 INFO Robot start moving /thymio10
+2020-05-22 15:53:13,845 INFO Robot stop
+2020-05-22 15:53:34,596 INFO Robot start moving /thymio10
+2020-05-22 15:54:10,536 INFO Robot stop
+2020-05-22 15:59:11,604 INFO Robot start moving /thymio10
+2020-05-22 15:59:44,757 INFO Robot stop
+2020-05-22 16:00:25,768 INFO Robot start moving /thymio10
+2020-05-22 16:04:29,605 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:29,708 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:29,815 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:29,918 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:30,014 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:30,117 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:30,227 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:30,328 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:30,429 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:30,531 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:30,634 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:30,737 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:30,855 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:30,949 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:31,046 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:31,155 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:31,262 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:31,359 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:31,463 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:31,564 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:31,663 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:31,763 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:31,868 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:31,966 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:32,070 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:32,174 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:32,276 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:32,374 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:32,482 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:32,584 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:32,681 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:32,785 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:32,894 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:32,989 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:33,088 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:33,192 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:33,290 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:33,388 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:33,498 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:33,603 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:33,700 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:33,799 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:33,910 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:34,009 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:34,108 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:34,214 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:34,312 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:34,412 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:34,516 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:34,621 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:34,723 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:34,820 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:34,933 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:35,030 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:35,126 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:35,228 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:35,325 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:35,423 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:35,525 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:35,628 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:41,028 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:41,130 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:41,230 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:41,336 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:41,437 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:41,535 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:41,648 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:41,743 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:41,841 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:41,945 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:42,048 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:42,148 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:42,251 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:42,355 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:42,460 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:42,556 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:42,656 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:42,762 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:42,874 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:42,971 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:43,071 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:43,176 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:43,274 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:43,377 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:43,474 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:52,476 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:52,576 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:52,688 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:52,800 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:52,895 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:52,995 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:53,104 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:53,206 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:53,298 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:53,401 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:53,501 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:53,597 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:53,698 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:53,806 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:53,907 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:54,005 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:54,111 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:54,214 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:54,321 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:54,425 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:54,526 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:54,624 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:54,722 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:54,827 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:54,925 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:55,023 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:55,124 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:55,228 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:55,325 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:55,428 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:55,539 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:55,634 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:55,733 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:55,838 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:55,936 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:56,039 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:56,143 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:56,241 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:56,339 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:56,443 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:56,545 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:56,643 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:56,743 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:56,859 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:56,955 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:57,059 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:57,156 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:57,257 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:57,358 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:57,455 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:57,559 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:57,658 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:57,760 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:57,863 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:57,968 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:58,062 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:58,167 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:58,277 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:58,371 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:58,474 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:58,577 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:58,675 INFO Blind spot found, angular correction -1
+2020-05-22 16:04:58,778 INFO Blind spot found, angular correction -1
+2020-05-22 16:11:09,554 INFO Robot stop
+2020-05-22 16:12:10,813 INFO Robot start moving /thymio10
+2020-05-22 17:15:03,850 INFO Robot stop
+2020-05-22 17:27:23,492 INFO Robot start moving /thymio10
+2020-05-22 17:27:23,924 INFO Robot stop
+2020-05-22 17:30:13,718 INFO Robot start moving /thymio10
+2020-05-22 17:31:39,701 INFO Robot stop
+2020-05-22 17:32:04,274 INFO Robot start moving /thymio10
+2020-05-22 17:32:15,832 INFO Robot stop
+2020-05-22 17:32:36,130 INFO Robot start moving /thymio10
+2020-05-22 17:36:12,750 INFO Robot stop
+2020-05-22 17:40:28,613 INFO Robot start moving /thymio10
+2020-05-22 17:40:36,773 INFO Robot stop
+2020-05-22 17:41:04,001 INFO Robot start moving /thymio10
+2020-05-22 17:41:23,190 INFO Robot stop
+2020-05-22 17:56:55,941 INFO Robot start moving /thymio10
+2020-05-22 17:59:03,976 INFO Robot stop
+2020-05-22 17:59:35,623 INFO Robot start moving /thymio10
+2020-05-22 17:59:41,740 INFO Robot stop
+2020-05-22 18:00:28,439 INFO Robot start moving /thymio10
+2020-05-22 18:00:29,841 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:29,946 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:30,050 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:30,148 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:30,252 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:30,353 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:30,457 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:30,556 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:30,655 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:30,763 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:30,864 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:30,975 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:31,078 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:31,184 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:31,285 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:31,385 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:31,484 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:31,589 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:31,691 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:31,794 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:31,889 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:31,989 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:32,092 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:32,204 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:32,305 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:32,405 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:32,522 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:32,622 INFO Blind spot found, angular correction 1
+2020-05-22 18:00:32,651 INFO Robot stop
+2020-05-22 18:01:09,132 INFO Robot start moving /thymio10
+2020-05-22 18:01:11,924 INFO Blind spot found, angular correction 1
+2020-05-22 18:01:12,028 INFO Blind spot found, angular correction 1
+2020-05-22 18:01:12,130 INFO Blind spot found, angular correction 1
+2020-05-22 18:01:12,233 INFO Blind spot found, angular correction 1
+2020-05-22 18:01:44,506 INFO Blind spot found, angular correction 1
+2020-05-22 18:01:44,619 INFO Blind spot found, angular correction 1
+2020-05-22 18:01:57,401 INFO Robot stop
+2020-05-22 18:04:12,855 INFO Robot start moving /thymio10
+2020-05-22 18:04:46,393 INFO Blind spot found, angular correction 1
+2020-05-22 18:04:46,494 INFO Blind spot found, angular correction 1
+2020-05-22 18:04:46,593 INFO Blind spot found, angular correction 1
+2020-05-22 18:04:46,695 INFO Blind spot found, angular correction 1
+2020-05-22 18:05:05,275 INFO Blind spot found, angular correction 1
+2020-05-22 18:05:05,374 INFO Blind spot found, angular correction 1
+2020-05-22 18:05:05,476 INFO Blind spot found, angular correction 1
+2020-05-22 18:05:05,685 INFO Blind spot found, angular correction 1
+2020-05-22 18:05:05,894 INFO Blind spot found, angular correction 1
+2020-05-22 18:05:05,992 INFO Blind spot found, angular correction 1
+2020-05-22 18:05:06,098 INFO Blind spot found, angular correction 1
+2020-05-22 18:05:11,972 INFO Robot stop
+2020-05-22 18:05:59,351 INFO Robot start moving /thymio10
+2020-05-22 18:06:06,970 INFO Blind spot found, angular correction -1
+2020-05-22 18:06:07,073 INFO Blind spot found, angular correction -1
+2020-05-22 18:06:16,127 INFO Robot stop
+2020-05-22 18:07:41,627 INFO Robot start moving /thymio10
+2020-05-22 18:07:54,582 INFO Blind spot found, angular correction -1
+2020-05-22 18:07:54,687 INFO Blind spot found, angular correction -1
+2020-05-22 18:07:54,784 INFO Blind spot found, angular correction -1
+2020-05-22 18:08:01,968 INFO Robot stop
+2020-05-22 18:11:16,653 INFO Robot start moving /thymio10
+2020-05-22 18:13:50,309 INFO Blind spot found, angular correction -1
+2020-05-22 18:14:34,749 INFO Blind spot found, angular correction -1
+2020-05-22 18:14:34,843 INFO Blind spot found, angular correction -1
+2020-05-22 18:14:35,558 INFO Blind spot found, angular correction -1
+2020-05-22 18:14:35,659 INFO Blind spot found, angular correction -1
+2020-05-22 18:15:13,010 INFO Blind spot found, angular correction -1
+2020-05-22 18:15:13,113 INFO Blind spot found, angular correction -1
+2020-05-22 18:15:14,673 INFO Blind spot found, angular correction -1
+2020-05-22 18:15:14,777 INFO Blind spot found, angular correction -1
+2020-05-22 18:15:34,747 INFO Robot stop
+2020-05-22 18:17:26,932 INFO Robot start moving /thymio10
+2020-05-22 18:18:04,972 INFO Blind spot found, angular correction -1
+2020-05-22 18:18:28,480 INFO Blind spot found, angular correction -1
+2020-05-22 18:19:13,364 INFO Blind spot found, angular correction 1
+2020-05-22 18:19:13,459 INFO Blind spot found, angular correction 1
+2020-05-22 18:19:13,555 INFO Blind spot found, angular correction 1
+2020-05-22 18:19:13,658 INFO Blind spot found, angular correction 1
+2020-05-22 18:19:13,755 INFO Blind spot found, angular correction 1
+2020-05-22 18:19:13,854 INFO Blind spot found, angular correction 1
+2020-05-22 18:19:13,967 INFO Blind spot found, angular correction 1
+2020-05-22 18:20:44,519 INFO Blind spot found, angular correction 1
+2020-05-22 18:20:44,617 INFO Blind spot found, angular correction 1
+2020-05-22 18:20:44,719 INFO Blind spot found, angular correction 1
+2020-05-22 18:20:44,815 INFO Blind spot found, angular correction 1
+2020-05-22 18:20:44,922 INFO Blind spot found, angular correction 1
+2020-05-22 18:21:08,547 INFO Blind spot found, angular correction -1
+2020-05-22 18:21:08,652 INFO Blind spot found, angular correction -1
+2020-05-22 18:21:51,512 INFO Blind spot found, angular correction -1
+2020-05-22 18:21:51,624 INFO Blind spot found, angular correction -1
+2020-05-22 18:22:09,228 INFO Robot stop
+2020-05-22 18:22:33,506 INFO Robot start moving /thymio10
+2020-05-22 18:22:48,593 INFO Blind spot found, angular correction -1
+2020-05-22 18:22:48,694 INFO Blind spot found, angular correction -1
+2020-05-22 18:22:50,110 INFO Blind spot found, angular correction -1
+2020-05-22 18:22:50,216 INFO Blind spot found, angular correction -1
+2020-05-22 18:23:22,428 INFO Blind spot found, angular correction -1
+2020-05-22 18:23:22,524 INFO Blind spot found, angular correction -1
+2020-05-22 18:23:55,009 INFO Blind spot found, angular correction 1
+2020-05-22 18:23:55,110 INFO Blind spot found, angular correction 1
+2020-05-22 18:23:55,208 INFO Blind spot found, angular correction 1
+2020-05-22 18:23:55,309 INFO Blind spot found, angular correction 1
+2020-05-22 18:24:04,344 INFO Robot stop
+2020-05-22 18:24:17,385 INFO Robot start moving /thymio10
+2020-05-22 18:24:30,831 INFO Blind spot found, angular correction -1
+2020-05-22 18:24:30,924 INFO Blind spot found, angular correction -1
+2020-05-22 18:24:31,751 INFO Blind spot found, angular correction -1
+2020-05-22 18:24:31,863 INFO Blind spot found, angular correction -1
+2020-05-22 18:25:15,174 INFO Blind spot found, angular correction -1
+2020-05-22 18:26:20,680 INFO Blind spot found, angular correction -1
+2020-05-22 18:26:21,507 INFO Blind spot found, angular correction -1
+2020-05-22 18:26:21,606 INFO Blind spot found, angular correction -1
+2020-05-22 18:26:24,782 INFO Robot stop
+2020-05-22 18:27:04,571 INFO Robot start moving /thymio10
+2020-05-22 18:27:42,037 INFO Robot stop
+2020-05-22 18:27:56,361 INFO Robot start moving /thymio10
+2020-05-22 18:29:36,175 INFO Blind spot found, angular correction -1
+2020-05-22 18:29:36,276 INFO Blind spot found, angular correction -1
+2020-05-22 18:30:06,867 INFO Blind spot found, angular correction -1
+2020-05-22 18:30:06,968 INFO Blind spot found, angular correction -1
+2020-05-22 18:30:07,872 INFO Blind spot found, angular correction -1
+2020-05-22 18:30:07,978 INFO Blind spot found, angular correction -1
+2020-05-22 18:30:08,083 INFO Blind spot found, angular correction -1
+2020-05-22 18:30:19,492 INFO Robot stop
+2020-05-22 18:30:36,228 INFO Robot start moving /thymio10
+2020-05-22 18:32:12,141 INFO Blind spot found, angular correction -1
+2020-05-22 18:32:12,241 INFO Blind spot found, angular correction -1
+2020-05-22 18:32:32,933 INFO Blind spot found, angular correction -1
+2020-05-22 18:32:33,033 INFO Blind spot found, angular correction -1
+2020-05-22 18:32:36,893 INFO Blind spot found, angular correction -1
+2020-05-22 18:32:36,994 INFO Blind spot found, angular correction -1
+2020-05-22 18:33:21,785 INFO Robot stop
+2020-05-22 18:33:59,087 INFO Robot start moving /thymio10
+2020-05-22 18:34:40,088 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:40,184 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:40,294 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:40,398 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:41,105 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:41,204 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:41,311 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:55,174 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:55,268 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:55,365 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:55,465 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:55,572 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:55,671 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:57,915 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:58,014 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:58,929 INFO Blind spot found, angular correction -1
+2020-05-22 18:34:59,033 INFO Blind spot found, angular correction -1
+2020-05-22 18:35:00,345 INFO Blind spot found, angular correction -1
+2020-05-22 18:35:00,448 INFO Blind spot found, angular correction -1
+2020-05-22 18:35:01,979 INFO Blind spot found, angular correction -1
+2020-05-22 18:35:02,078 INFO Blind spot found, angular correction -1
+2020-05-22 18:35:02,832 INFO Robot stop
+2020-05-22 18:37:05,810 INFO Robot start moving /thymio10
+2020-05-22 18:37:15,759 INFO Robot stop

@@ -91,21 +91,12 @@ class CNNController(ross_message):
 		a,b = self.sensor.blind_spot_colision()		#Blind spots
 		if a: #Blind spot found 
 			self.logger.info('Blind spot found, angular correction {}'.format(b))
-			print('SENSOR decision')
 			return Twist(linear=Vector3(.1,.0,.0,),angular=Vector3(.0,.0,b*2 )) 
-			 #return Twist(linear=Vector3(.0,.0,.0,),angular=Vector3(.0,.0,.0))
 		 
 		angular_velocity = self.model.predict(frame/255.)  * -10
 		
-		self.queue.append(angular_velocity)
-		self.queue.pop(0)
-		angular_velocity = sum(self.queue)/len(self.queue)
-	
-		print('Angular velocity prediction', angular_velocity)
 		self.logger.debug('angular velocity: {}'.format(angular_velocity) )
-		#print('CNN decision')
 		return Twist(linear=Vector3(.1,.0,.0,),angular=Vector3(.0,.0,angular_velocity))
-		#return Twist(linear=Vector3(.0,.0,.0,),angular=Vector3(.0,.0,.0))
 
 	def run(self):
 		flag_iter = 10

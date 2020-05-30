@@ -5,14 +5,14 @@
 <!-- arguments <?xml version="1.0"?>
 are set via terminal and can have a default value -->
 <arg name="robot_name" default="thymio10" />
-<arg name="instruction_path" default="/home/usi/catkin_ws/src/robotics/instructions/exercise2.json" />
+<arg name="instruction_path" default="~/catkin_ws/src/robotics/instructions/exercise2.json" />
 <arg name="save_data" default="1"/>
-<arg name="data_path" default="/home/usi/catkin_ws/src/robotics/data"/>
+<arg name="data_path" default="~/catkin_ws/src/robotics/data"/>
 <arg name="dataset_size" default="25"/>
 <arg name="use_sensors" default="1" />
 <arg name="random_noise" default="1" />
 <arg name="debug" default="0" />
-<arg name="debug_path" default="/home/usi/catkin_ws/src/robotics/logs/" />
+<arg name="debug_path" default="../catkin_ws/src/robotics/logs/" />
 
 
 <!-- nodes are exectued -->

@@ -1,5 +1,7 @@
 # Robotics
 
+## Environment
+
 Run world without big interface 
 
 ```python 
@@ -10,6 +12,8 @@ Run world with big interface
 ```python
 roslaunch robotics thymio_gazebo_bringup.launch name:=thymio10 world:=pink_hall gui:=true
 ```
+
+## Robot controller
 
 Run robot with saving data and debug on
 

@@ -50,6 +50,8 @@ re.
 * sensor_class.py: class use to work with the sensor of the robot.
 * interface.py: interface of the robot (plots,graphs ect...).
 * model_controller.py: empty class used to try to see how to collect data (can be remove).
+* controller_dot.py: alternative logic to move the robot using the sensors.
+* model_controler_alt.py: alternative controller to use the CNN model.
 
 momevement and sensor have all the functions and logic need it to work with sensors and direction of the robot.
 
